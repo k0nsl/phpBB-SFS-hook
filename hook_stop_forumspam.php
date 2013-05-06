@@ -35,7 +35,7 @@ We are sorry, but you are not allowed to register at this
 <br>message board as long as your IP address is listed
 <br>at stopforumspam.com.
 <p>
-Once your IP address is removed, you will be allowed. If you think this is an error, please write to mailbox[at]codoh.com
+Once your IP address is removed, you will be allowed. If you think this is an error, please write to mail[at]domain.tld
 </body>
 </html>
 ';
