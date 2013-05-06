@@ -16,7 +16,17 @@ if (!defined('IN_PHPBB'))
  */
 function hook_stop_forumspam(&$hook)
 {
-/* empty */
+$req_uri = $_SERVER['REQUEST_URI'];
+$reg_pattern = '/mode=register/';
+if (preg_match($reg_pattern, $req_uri)) {
+$addr = $_SERVER['REMOTE_ADDR'];
+$response = file_get_contents('http://www.stopforumspam.com/api?ip='.$addr);
+$pattern = '/<appears>yes<\/appears>/';
+if (preg_match($pattern, $response)) {
+/* include file, redirect, or echo? */
+exit();
+}
+}
 }
 
 /**
