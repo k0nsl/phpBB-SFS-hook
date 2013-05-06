@@ -20,7 +20,7 @@ $req_uri = $_SERVER['REQUEST_URI'];
 $reg_pattern = '/mode=register/';
 if (preg_match($reg_pattern, $req_uri)) {
 $addr = $_SERVER['REMOTE_ADDR'];
-$response = file_get_contents('http://www.stopforumspam.com/api?ip='.$addr);
+$response = curl_get('http://www.stopforumspam.com/api?ip='.$addr);
 $pattern = '/<appears>yes<\/appears>/';
 if (preg_match($pattern, $response)) {
 /* IP is listed, so we inform the user, then exit. */
@@ -42,6 +42,21 @@ Once your IP address is removed, you will be allowed. If you think this is an er
 exit();
 }
 }
+}
+
+/**
+ * Replaced file_get_contents with cURL
+ */
+function curl_get($url) {
+    if (!function_exists('curl_init')){ 
+        die('Error: cURL is not installed.');
+    }
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $output = curl_exec($ch);
+    curl_close($ch);
+    return $output;
 }
 
 /**
