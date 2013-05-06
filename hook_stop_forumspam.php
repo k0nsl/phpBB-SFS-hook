@@ -23,7 +23,22 @@ $addr = $_SERVER['REMOTE_ADDR'];
 $response = file_get_contents('http://www.stopforumspam.com/api?ip='.$addr);
 $pattern = '/<appears>yes<\/appears>/';
 if (preg_match($pattern, $response)) {
-/* include file, redirect, or echo? */
+/* IP is listed, so we inform the user, then exit. */
+echo '
+<html>
+<head>
+<title>Spammer detected</title>
+</head>
+<body>
+<h1>IP Detected As Spam Source</h1>
+We are sorry, but you are not allowed to register at this
+<br>message board as long as your IP address is listed
+<br>at stopforumspam.com.
+<p>
+Once your IP address is removed, you will be allowed. If you think this is an error, please write to mailbox[at]codoh.com
+</body>
+</html>
+';
 exit();
 }
 }
