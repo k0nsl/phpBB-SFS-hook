@@ -48,11 +48,7 @@ exit();
  * make use of either cURL or file_get_contents
  */
 function curl_get($url) {
-	if (ini_get('allow_url_fopen'))
-	{
-		return @file_get_contents($url);
-	}
-	elseif (function_exists('curl_init'))
+	if (function_exists('curl_init'))
 	{
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -63,6 +59,10 @@ function curl_get($url) {
       curl_close($ch);
 
       return ($output) ? $output : false;	
+	}
+	elseif (ini_get('allow_url_fopen'))
+	{
+		return @file_get_contents($url);
 	}
 }
 
